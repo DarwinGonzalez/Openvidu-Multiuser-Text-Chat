@@ -18,10 +18,10 @@ function joinSession() {
         // console.log(event.from); // Connection object of the sender
         // console.log(event.type); // The type of message ("my-chat")
 
-        console.log("ID del que envía: " + event.from.connectId);
-        console.log("Mi ID: " + session.connection.connectId);
+        console.log("ID del que envía: " + event.from.connectionId);
+        console.log("Mi ID: " + session.connection.connectionId);
         // Si quien ha enviado el mensaje soy yo...
-        if (event.from.connectId === session.connection.connectId) {
+        if (event.from.connectionId === session.connection.connectionId) {
             mensaje = event.from.connectionId + " <-- " + mensaje;
         } else {
             mensaje = event.from.connectionId + " --> " + mensaje;
