@@ -60,6 +60,8 @@ window.onbeforeunload = function() {
 
 function mandar_mensaje() {
     var mensaje = document.getElementById("texto").value;
+    var chat = document.getElementById("chat");
+
     mensaje = session.connection.connectionId + " --> " + mensaje;
     session.signal({
             data: mensaje,
@@ -68,6 +70,7 @@ function mandar_mensaje() {
         })
         .then(() => {
             console.log("Mensaje enviado");
+            chat.innerHtml = chat.innerHtml + "\n" + mensaje;
         })
         .catch(error => {
             console.error(error);
