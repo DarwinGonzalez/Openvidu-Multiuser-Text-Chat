@@ -15,14 +15,14 @@ function joinSession() {
     session.on('signal', (event) => {
         var mensaje = event.data;
         // console.log(event.data); // Message
-        // console.log(event.from); // Connection object of the sender
+        console.log(event.from); // Connection object of the sender
         // console.log(event.type); // The type of message ("my-chat")
 
         // Si quien ha enviado el mensaje soy yo...
-        if (event.from == session.connection.connectId) {
-            mensaje = session.connection.connectionId + " <-- " + mensaje;
+        if (event.from.connectId === session.connection.connectId) {
+            mensaje = event.from.connectionId + " <-- " + mensaje;
         } else {
-            mensaje = session.connection.connectionId + " --> " + mensaje;
+            mensaje = event.from.connectionId + " --> " + mensaje;
         }
 
         var chat = document.getElementById("chat");
@@ -64,7 +64,7 @@ window.onbeforeunload = function() {
 
 function mandar_mensaje() {
     var mensaje = document.getElementById("mensaje").value;
-    
+
     session.signal({
             data: mensaje,
             to: [],
