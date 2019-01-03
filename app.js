@@ -70,7 +70,7 @@ function mandar_mensaje() {
         })
         .then(() => {
             console.log("Mensaje enviado");
-            chat.innerHtml = chat.innerHtml + "\n" + mensaje;
+            chat.value = chat.value + "\n" + mensaje;
         })
         .catch(error => {
             console.error(error);
