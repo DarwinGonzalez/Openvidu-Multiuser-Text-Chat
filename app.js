@@ -30,7 +30,10 @@ function joinSession() {
     session.on('signal', (event) => {
         var mensaje = event.data;
 
-        console.log("Este es el objeto: " + event)
+        console.log("Este es el objeto:")
+        console.log(event)
+        console.log(Object.keys(event));
+        
         // Si quien ha enviado el mensaje soy yo...
         if (event.from.connectionId === session.connection.connectionId) {
             mensaje = event.nombre + " <-- " + mensaje;
