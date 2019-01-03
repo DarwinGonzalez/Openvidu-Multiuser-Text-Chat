@@ -86,7 +86,8 @@ function mandar_mensaje() {
     var mensaje = document.getElementById("mensaje").value;
 
     session.signal({
-            data: [mensaje, name, pos_emoji],
+            // data: [mensaje, name, pos_emoji],
+            data: ["hola", "alex", 5],
             to: [],
             type: 'my-chat',
         })
