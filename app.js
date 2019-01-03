@@ -16,7 +16,14 @@ function joinSession() {
         console.log(event.data); // Message
         console.log(event.from); // Connection object of the sender
         console.log(event.type); // The type of message ("my-chat")
+        var chat = document.getElementById("chat");
+        chat.value = chat.value + "\n" + event.data;
     });
+
+    // session.on('mensaje_recibido', (event) => {
+    //     var chat = document.getElementById("chat");
+    //     chat.value = chat.value + "\n" + mensaje;
+    // });
 
     getToken(mySessionId).then(token => {
 
