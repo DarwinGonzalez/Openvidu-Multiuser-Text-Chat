@@ -1,6 +1,21 @@
 var OV;
 var session;
 
+const possibleEmojis = [
+    '🐀', '🐁', '🐭', '🐹', '🐂', '🐃', '🐄', '🐮', '🐅', '🐆', '🐯', '🐇', '🐐', '🐑', '🐏', '🐴',
+    '🐎', '🐱', '🐈', '🐰', '🐓', '🐔', '🐤', '🐣', '🐥', '🐦', '🐧', '🐘', '🐩', '🐕', '🐷', '🐖',
+    '🐗', '🐫', '🐪', '🐶', '🐺', '🐻', '🐨', '🐼', '🐵', '🙈', '🙉', '🙊', '🐒', '🐉', '🐲', '🐊',
+    '🐍', '🐢', '🐸', '🐋', '🐳', '🐬', '🐙', '🐟', '🐠', '🐡', '🐚', '🐌', '🐛', '🐜', '🐝', '🐞',
+];
+
+function randomEmoji() {
+    var randomIndex = Math.floor(Math.random() * possibleEmojis.length);
+    return possibleEmojis[randomIndex];
+}
+
+const emoji = randomEmoji();
+const name = prompt("Kien ereh?");
+
 function joinSession() {
 
     var mySessionId = document.getElementById("sessionId").value;
@@ -14,17 +29,14 @@ function joinSession() {
 
     session.on('signal', (event) => {
         var mensaje = event.data;
-        // console.log(event.data); // Message
-        // console.log(event.from); // Connection object of the sender
-        // console.log(event.type); // The type of message ("my-chat")
 
         console.log("ID del que envía: " + event.from.connectionId);
         console.log("Mi ID: " + session.connection.connectionId);
         // Si quien ha enviado el mensaje soy yo...
         if (event.from.connectionId === session.connection.connectionId) {
-            mensaje = event.from.connectionId + " <-- " + mensaje;
+            mensaje = event.nombre + " <-- " + mensaje;
         } else {
-            mensaje = event.from.connectionId + " --> " + mensaje;
+            mensaje = event.nombre + " --> " + mensaje;
         }
 
         var chat = document.getElementById("chat");
@@ -70,7 +82,8 @@ function mandar_mensaje() {
     session.signal({
             data: mensaje,
             to: [],
-            type: 'my-chat'
+            type: 'my-chat',
+            nombre: emoji + " " + name;
         })
         .then(() => {
             console.log("Mensaje enviado");
