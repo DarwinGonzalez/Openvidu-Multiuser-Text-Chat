@@ -83,7 +83,7 @@ function mandar_mensaje() {
             data: mensaje,
             to: [],
             type: 'my-chat',
-            nombre: emoji + " " + name;
+            nombre: emoji + " " + name
         })
         .then(() => {
             console.log("Mensaje enviado");
