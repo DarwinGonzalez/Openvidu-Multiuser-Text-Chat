@@ -64,12 +64,8 @@ window.onbeforeunload = function() {
 
 function mandar_mensaje() {
     var mensaje = document.getElementById("mensaje").value;
-    var chat = document.getElementById("chat");
-
-    if (session.connection.connectionId == )
-
-        // mensaje = session.connection.connectionId + " --> " + mensaje;
-        session.signal({
+    
+    session.signal({
             data: mensaje,
             to: [],
             type: 'my-chat'
