@@ -12,13 +12,13 @@ function joinSession() {
         session.subscribe(event.stream, "subscriber");
     });
 
-    getToken(mySessionId).then(token => {
+    session.on('signal', (event) => {
+        console.log(event.data); // Message
+        console.log(event.from); // Connection object of the sender
+        console.log(event.type); // The type of message ("my-chat")
+    });
 
-        session.on('signal', (event) => {
-            console.log(event.data); // Message
-            console.log(event.from); // Connection object of the sender
-            console.log(event.type); // The type of message ("my-chat")
-        });
+    getToken(mySessionId).then(token => {      
 
         session.connect(token)
             .then(() => {
