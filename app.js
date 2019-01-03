@@ -28,24 +28,22 @@ function joinSession() {
 
                 var publisher = OV.initPublisher("publisher");
                 session.publish(publisher);
+                session.signal({
+                        data: "este es mi mensaje",
+                        to: [],
+                        type: 'my-chat'
+                    })
+                    .then(() => {
+                        console.log("Mensaje enviado");
+                    })
+                    .catch(error => {
+                        console.error(error);
+                    })
             })
             .catch(error => {
                 console.log("There was an error connecting to the session:", error.code, error.message);
             });
-
-        session.signal({
-                data: "este es mi mensaje",
-                to: [],
-                type: 'my-chat'
-            })
-            .then(() => {
-                console.log("Mensaje enviado");
-            })
-            .catch(error => {
-                console.error(error);
-            })
     });
-
 }
 
 function leaveSession() {
