@@ -60,6 +60,7 @@ window.onbeforeunload = function() {
 
 function mandar_mensaje() {
     var mensaje = document.getElementById("texto").value;
+    mensaje = session.connection.connectionId + " --> " + mensaje;
     session.signal({
             data: mensaje,
             to: [],
