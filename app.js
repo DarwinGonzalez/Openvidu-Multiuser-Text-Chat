@@ -25,6 +25,7 @@ function joinSession() {
                 document.getElementById("session-header").innerText = mySessionId;
                 document.getElementById("join").style.display = "none";
                 document.getElementById("session").style.display = "block";
+                document.getElementById("ventana_chat").style.display = "block";
 
                 session.signal({
                         data: "este es mi mensaje",
@@ -59,7 +60,7 @@ window.onbeforeunload = function() {
 };
 
 function mandar_mensaje() {
-    var mensaje = document.getElementById("texto").value;
+    var mensaje = document.getElementById("mensaje").value;
     var chat = document.getElementById("chat");
 
     mensaje = session.connection.connectionId + " --> " + mensaje;
