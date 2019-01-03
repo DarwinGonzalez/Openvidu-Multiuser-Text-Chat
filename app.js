@@ -30,19 +30,21 @@ function joinSession() {
     });
 
     session.on('signal', (event) => {
-        var mensaje = event.data[0];
-        var nombre = event.data[1];
-        var emojii = possibleEmojis[parseInt(event.data.emoji[2])];
+        // var mensaje = event.data[0];
+        // var nombre = event.data[1];
+        // var emojii = possibleEmojis[parseInt(event.data.emoji[2])];
+        var mensaje = event.data.split(".");
 
         console.log("Este es el objeto:")
+        console.log(mensaje)
         console.log(event)
-        console.log(Object.keys(event));
+        // console.log(Object.keys(event));
 
         // Si quien ha enviado el mensaje soy yo...
         if (event.from.connectionId === session.connection.connectionId) {
-            mensaje = emojii + " " + nombre + " <-- " + mensaje;
+            mensaje = possibleEmojis[parseInt(mensaje[2])] + " " + mensaje[1] + " <-- " + mensaje[0];
         } else {
-            mensaje = emojii + " " + nombre + " --> " + mensaje;
+            mensaje = possibleEmojis[parseInt(mensaje[2])] + " " + mensaje[1] + " --> " + mensaje[0];
         }
 
         var chat = document.getElementById("chat");
@@ -84,10 +86,10 @@ window.onbeforeunload = function() {
 
 function mandar_mensaje() {
     var mensaje = document.getElementById("mensaje").value;
-
+    mensaje = mensaje+"."+name+"."+pos_emoji;
     session.signal({
             // data: [mensaje, name, pos_emoji],
-            data: ["hola", "alex", "5"],
+            data: mensaje,
             to: [],
             type: 'my-chat',
         })
