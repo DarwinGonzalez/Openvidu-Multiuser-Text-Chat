@@ -26,8 +26,6 @@ function joinSession() {
                 document.getElementById("join").style.display = "none";
                 document.getElementById("session").style.display = "block";
 
-                var publisher = OV.initPublisher("publisher");
-                session.publish(publisher);
                 session.signal({
                         data: "este es mi mensaje",
                         to: [],
@@ -39,6 +37,10 @@ function joinSession() {
                     .catch(error => {
                         console.error(error);
                     })
+
+                var publisher = OV.initPublisher("publisher");
+                session.publish(publisher);
+
             })
             .catch(error => {
                 console.log("There was an error connecting to the session:", error.code, error.message);
