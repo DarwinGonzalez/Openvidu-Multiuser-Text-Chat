@@ -32,7 +32,7 @@ function joinSession() {
     session.on('signal', (event) => {
         var mensaje = event.data[0];
         var nombre = event.data[1];
-        var emojii = possibleEmojis[event.data.emoji[2]];
+        var emojii = possibleEmojis[parseInt(event.data.emoji[2])];
 
         console.log("Este es el objeto:")
         console.log(event)
@@ -87,7 +87,7 @@ function mandar_mensaje() {
 
     session.signal({
             // data: [mensaje, name, pos_emoji],
-            data: ["hola", "alex", 5],
+            data: ["hola", "alex", "5"],
             to: [],
             type: 'my-chat',
         })
