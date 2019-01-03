@@ -18,7 +18,7 @@ function joinSession() {
         console.log(event.type); // The type of message ("my-chat")
     });
 
-    getToken(mySessionId).then(token => {      
+    getToken(mySessionId).then(token => {
 
         session.connect(token)
             .then(() => {
@@ -57,6 +57,21 @@ function leaveSession() {
 window.onbeforeunload = function() {
     if (session) session.disconnect()
 };
+
+function mandar_mensaje() {
+    var mensaje = document.getElementById("texto").value;
+    session.signal({
+            data: mensaje,
+            to: [],
+            type: 'my-chat'
+        })
+        .then(() => {
+            console.log("Mensaje enviado");
+        })
+        .catch(error => {
+            console.error(error);
+        })
+}
 
 
 /**
