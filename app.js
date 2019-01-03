@@ -13,17 +13,25 @@ function joinSession() {
     });
 
     session.on('signal', (event) => {
-        console.log(event.data); // Message
-        console.log(event.from); // Connection object of the sender
-        console.log(event.type); // The type of message ("my-chat")
-        var chat = document.getElementById("chat");
-        chat.value = chat.value + "\n" + event.data;
-    });
+        var mensaje = event.data;
+        // console.log(event.data); // Message
+        // console.log(event.from); // Connection object of the sender
+        // console.log(event.type); // The type of message ("my-chat")
 
-    // session.on('mensaje_recibido', (event) => {
-    //     var chat = document.getElementById("chat");
-    //     chat.value = chat.value + "\n" + mensaje;
-    // });
+        // Si quien ha enviado el mensaje soy yo...
+        if (event.from == session.connection.connectId) {
+            mensaje = session.connection.connectionId + " <-- " + mensaje;
+        } else {
+            mensaje = session.connection.connectionId + " --> " + mensaje;
+        }
+
+        var chat = document.getElementById("chat");
+        if (chat.value === "") {
+            chat.value = mensaje;
+        } else {
+            chat.value = chat.value + "\n" + mensaje;
+        }
+    });
 
     getToken(mySessionId).then(token => {
 
@@ -33,18 +41,6 @@ function joinSession() {
                 document.getElementById("join").style.display = "none";
                 document.getElementById("session").style.display = "block";
                 document.getElementById("ventana_chat").style.display = "block";
-
-                session.signal({
-                        data: "este es mi mensaje",
-                        to: [],
-                        type: 'my-chat'
-                    })
-                    .then(() => {
-                        console.log("Mensaje enviado");
-                    })
-                    .catch(error => {
-                        console.error(error);
-                    })
 
                 var publisher = OV.initPublisher("publisher");
                 session.publish(publisher);
@@ -70,15 +66,17 @@ function mandar_mensaje() {
     var mensaje = document.getElementById("mensaje").value;
     var chat = document.getElementById("chat");
 
-    mensaje = session.connection.connectionId + " --> " + mensaje;
-    session.signal({
+    if (session.connection.connectionId == )
+
+        // mensaje = session.connection.connectionId + " --> " + mensaje;
+        session.signal({
             data: mensaje,
             to: [],
             type: 'my-chat'
         })
         .then(() => {
             console.log("Mensaje enviado");
-            chat.value = chat.value + "\n" + mensaje;
+            // chat.value = chat.value + "\n" + mensaje;
         })
         .catch(error => {
             console.error(error);
