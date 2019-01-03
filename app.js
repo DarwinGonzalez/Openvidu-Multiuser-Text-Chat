@@ -42,9 +42,9 @@ function joinSession() {
 
         // Si quien ha enviado el mensaje soy yo...
         if (event.from.connectionId === session.connection.connectionId) {
-            mensaje = possibleEmojis[parseInt(mensaje[2])] + " " + mensaje[1] + " <-- " + mensaje[0];
-        } else {
             mensaje = possibleEmojis[parseInt(mensaje[2])] + " " + mensaje[1] + " --> " + mensaje[0];
+        } else {
+            mensaje = possibleEmojis[parseInt(mensaje[2])] + " " + mensaje[1] + " <-- " + mensaje[0];
         }
 
         var chat = document.getElementById("chat");
