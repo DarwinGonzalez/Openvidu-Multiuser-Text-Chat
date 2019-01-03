@@ -10,10 +10,12 @@ const possibleEmojis = [
 
 function randomEmoji() {
     var randomIndex = Math.floor(Math.random() * possibleEmojis.length);
-    return possibleEmojis[randomIndex];
+    return randomIndex;
+    // return possibleEmojis[randomIndex];
 }
 
-const emoji = randomEmoji();
+const pos_emoji = randomEmoji();
+const emoji = possibleEmojis[pos_emoji];
 const name = prompt("Kien ereh?");
 
 function joinSession() {
@@ -30,6 +32,7 @@ function joinSession() {
     session.on('signal', (event) => {
         var mensaje = event.data.mensaje;
         var nombre = event.data.nombre;
+        var emojii = possibleEmojis[event.data.emoji];
 
         console.log("Este es el objeto:")
         console.log(event)
@@ -37,9 +40,9 @@ function joinSession() {
 
         // Si quien ha enviado el mensaje soy yo...
         if (event.from.connectionId === session.connection.connectionId) {
-            mensaje = nombre + " <-- " + mensaje;
+            mensaje = emojii + " " + nombre + " <-- " + mensaje;
         } else {
-            mensaje = nombre + " --> " + mensaje;
+            mensaje = emojii + " " + nombre + " --> " + mensaje;
         }
 
         var chat = document.getElementById("chat");
@@ -83,7 +86,7 @@ function mandar_mensaje() {
     var mensaje = document.getElementById("mensaje").value;
 
     session.signal({
-            data: {mensaje: mensaje, nombre: emoji + " " + name},
+            data: {mensaje: mensaje, nombre: name, emoji: pos_emoji},
             to: [],
             type: 'my-chat',
         })
