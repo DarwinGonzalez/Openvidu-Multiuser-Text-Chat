@@ -28,17 +28,18 @@ function joinSession() {
     });
 
     session.on('signal', (event) => {
-        var mensaje = event.data;
+        var mensaje = event.data.mensaje;
+        var nombre = event.data.nombre;
 
         console.log("Este es el objeto:")
         console.log(event)
         console.log(Object.keys(event));
-        
+
         // Si quien ha enviado el mensaje soy yo...
         if (event.from.connectionId === session.connection.connectionId) {
-            mensaje = event.nombre + " <-- " + mensaje;
+            mensaje = nombre + " <-- " + mensaje;
         } else {
-            mensaje = event.nombre + " --> " + mensaje;
+            mensaje = nombre + " --> " + mensaje;
         }
 
         var chat = document.getElementById("chat");
@@ -82,10 +83,9 @@ function mandar_mensaje() {
     var mensaje = document.getElementById("mensaje").value;
 
     session.signal({
-            data: mensaje,
+            data: {mensaje: mensaje, nombre: emoji + " " + name},
             to: [],
             type: 'my-chat',
-            nombre: emoji + " " + name
         })
         .then(() => {
             console.log("Mensaje enviado");
