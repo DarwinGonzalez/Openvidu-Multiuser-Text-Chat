@@ -11,7 +11,6 @@ const possibleEmojis = [
 function randomEmoji() {
     var randomIndex = Math.floor(Math.random() * possibleEmojis.length);
     return randomIndex;
-    // return possibleEmojis[randomIndex];
 }
 
 const pos_emoji = randomEmoji();
@@ -30,29 +29,28 @@ function joinSession() {
     });
 
     session.on('signal', (event) => {
-        // var mensaje = event.data[0];
-        // var nombre = event.data[1];
-        // var emojii = possibleEmojis[parseInt(event.data.emoji[2])];
         var mensaje = event.data.split(".");
 
-        console.log("Este es el objeto:")
-        console.log(mensaje)
-        console.log(event)
-        // console.log(Object.keys(event));
+        const template = document.querySelector('template[data-template="message"]');
+        const nameEl = template.content.querySelector('.message__name');
 
-        // Si quien ha enviado el mensaje soy yo...
+        if (mensaje[1] || possibleEmojis[parseInt(mensaje[2])]) {
+            nameEl.innerText = possibleEmojis[parseInt(mensaje[2])] + ' ' + mensaje[1];
+        }
+
+        template.content.querySelector('.message__bubble').innerText = mensaje[0];
+        const clone = document.importNode(template.content, true);
+        const messageEl = clone.querySelector('.message');
+
         if (event.from.connectionId === session.connection.connectionId) {
-            mensaje = possibleEmojis[parseInt(mensaje[2])] + " " + mensaje[1] + " --> " + mensaje[0];
-        } else {
-            mensaje = possibleEmojis[parseInt(mensaje[2])] + " " + mensaje[1] + " <-- " + mensaje[0];
+            messageEl.classList.add('message--mine');
+          } else {
+            messageEl.classList.add('message--theirs');
         }
 
-        var chat = document.getElementById("chat");
-        if (chat.value === "") {
-            chat.value = mensaje;
-        } else {
-            chat.value = chat.value + "\n" + mensaje;
-        }
+        const messagesEl = document.querySelector('.messages');
+        messagesEl.appendChild(clone);
+
     });
 
     getToken(mySessionId).then(token => {
@@ -88,14 +86,12 @@ function mandar_mensaje() {
     var mensaje = document.getElementById("mensaje").value;
     mensaje = mensaje+"."+name+"."+pos_emoji;
     session.signal({
-            // data: [mensaje, name, pos_emoji],
             data: mensaje,
             to: [],
             type: 'my-chat',
         })
         .then(() => {
             console.log("Mensaje enviado");
-            // chat.value = chat.value + "\n" + mensaje;
         })
         .catch(error => {
             console.error(error);
