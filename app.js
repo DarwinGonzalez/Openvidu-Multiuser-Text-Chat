@@ -15,7 +15,7 @@ function randomEmoji() {
 
 const pos_emoji = randomEmoji();
 const emoji = possibleEmojis[pos_emoji];
-const name = prompt("Kien ereh?");
+const name = prompt("Introduzca su nombre de usuario:");
 
 function joinSession() {
 
