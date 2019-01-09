@@ -29,7 +29,7 @@ function joinSession() {
     });
 
     session.on('signal', (event) => {
-        var mensaje = event.data.split(".");
+        var mensaje = event.data.split(".././././.");
 
         const template = document.querySelector('template[data-template="message"]');
         const nameEl = template.content.querySelector('.message__name');
@@ -84,7 +84,7 @@ window.onbeforeunload = function() {
 
 function mandar_mensaje() {
     var mensaje = document.getElementById("mensaje").value;
-    mensaje = mensaje+"."+name+"."+pos_emoji;
+    mensaje = mensaje+".././././."+name+".././././."+pos_emoji;
     session.signal({
             data: mensaje,
             to: [],
