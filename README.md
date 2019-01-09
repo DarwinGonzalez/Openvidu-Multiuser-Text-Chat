@@ -18,3 +18,10 @@ Una vez hecho esto solo queda acceder a la siguiente URL donde estará alojada l
 ```
 localhost:8080
 ```
+## Aspecto chat en funcionamiento
+A continuación, se exponen diferentes capturas (correspondientes a los diferentes usuarios: Alice, Bob y Peter) utilizando el chat de forma simultánea.
+<p align="center">
+<img src="https://github.com/DarwinGonzalez/Openvidu-Multiuser-Text-Chat/blob/master/images/alice.png?raw=true" width="30%" height="30%">
+<img src="https://github.com/DarwinGonzalez/Openvidu-Multiuser-Text-Chat/blob/master/images/bob.png?raw=true" width="30%" height="30%">
+<img src="https://github.com/DarwinGonzalez/Openvidu-Multiuser-Text-Chat/blob/master/images/peter.png?raw=true" width="30%" height="30%">
+</p>
