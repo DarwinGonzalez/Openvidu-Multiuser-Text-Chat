@@ -84,6 +84,7 @@ window.onbeforeunload = function() {
 
 function mandar_mensaje() {
     var mensaje = document.getElementById("mensaje").value;
+    document.getElementById("mensaje").value = "";
     mensaje = mensaje+".././././."+name+".././././."+pos_emoji;
     session.signal({
             data: mensaje,
